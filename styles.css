@@ -340,6 +340,45 @@ nav {
     text-align: center;
 }
 
+.equality-poem {
+    background: linear-gradient(135deg, rgba(19, 136, 8, 0.1) 0%, rgba(0, 0, 128, 0.1) 100%);
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 2rem 0;
+    border: 2px solid var(--green);
+    position: relative;
+    overflow: hidden;
+}
+
+.equality-poem::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--green), var(--navy-blue));
+}
+
+.equality-poem h3 {
+    color: var(--navy-blue);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    position: relative;
+}
+
+.equality-poem h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--green), var(--navy-blue));
+}
+
 .poem-content {
     text-align: center;
     font-style: italic;

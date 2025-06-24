@@ -139,27 +139,28 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Scroll animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
+// Scroll to top functionality
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
     });
-}, observerOptions);
+}
 
-// Observe elements for animation
+// Show/hide scroll to top button
+window.addEventListener('scroll', () => {
+    const scrollTopBtn = document.querySelector('.scroll-top');
+    if (window.scrollY > 300) {
+        scrollTopBtn.classList.add('show');
+    } else {
+        scrollTopBtn.classList.remove('show');
+    }
+});
+
+// Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    const animateElements = document.querySelectorAll('.section-header, .program-card, .gallery-item, .about-content, .contact-content');
-    animateElements.forEach(el => {
-        el.classList.add('fade-in');
-        observer.observe(el);
-    });
+    // Initialize form validation messages
+    updateFormValidationMessages(currentLanguage);
 });
 
 // Contact form handling
@@ -235,55 +236,4 @@ function openLightbox(imageSrc) {
 function closeLightbox() {
     const lightbox = document.getElementById('lightbox');
     lightbox.style.display = 'none';
-}
-
-// Scroll to top functionality
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-}
-
-// Show/hide scroll to top button
-window.addEventListener('scroll', () => {
-    const scrollTopBtn = document.querySelector('.scroll-top');
-    if (window.scrollY > 300) {
-        scrollTopBtn.classList.add('show');
-    } else {
-        scrollTopBtn.classList.remove('show');
-    }
-});
-
-// Initialize everything when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize form validation messages
-    updateFormValidationMessages(currentLanguage);
-    
-    // Add fade-in animation class
-    const fadeElements = document.querySelectorAll('.section-header, .program-card, .gallery-item, .about-content, .contact-content');
-    fadeElements.forEach(el => {
-        el.classList.add('fade-in');
-    });
-    
-    // Initialize intersection observer for animations
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.1 });
-    
-    fadeElements.forEach(el => observer.observe(el));
-});
-
-// Add patriotic wave animation to flag emoji
-document.addEventListener('DOMContentLoaded', () => {
-    const flagEmojis = document.querySelectorAll('h1, h2, h3');
-    flagEmojis.forEach(element => {
-        if (element.textContent.includes('🇮🇳')) {
-            element.style.animation = 'flag-wave 3s ease-in-out infinite';
-        }
-    });
-}); 
+} 

@@ -24,6 +24,15 @@ function switchLanguage(lang) {
     // Update HTML lang attribute
     document.documentElement.lang = lang;
     
+    // Update page title and meta description
+    if (lang === 'kn') {
+        document.title = 'ಅನೇಕ ಟ್ರಸ್ಟ್ - Aneka Trust | Empowering Children for a Better Tomorrow';
+        document.querySelector('meta[name="description"]').setAttribute('content', 'ಅನೇಕ ಟ್ರಸ್ಟ್ - Empowering underprivileged children through education, cultural activities, and global opportunities. Supporting secularism and liberalism in India.');
+    } else {
+        document.title = 'Aneka Trust | Empowering Children for a Better Tomorrow';
+        document.querySelector('meta[name="description"]').setAttribute('content', 'Aneka Trust - Empowering underprivileged children through education, cultural activities, and global opportunities. Supporting secularism and liberalism in India.');
+    }
+    
     // Update all elements with data attributes
     const elements = document.querySelectorAll('[data-kn][data-en]');
     elements.forEach(element => {

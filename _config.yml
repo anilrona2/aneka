@@ -1,0 +1,89 @@
+# Jekyll Configuration for Aneka NGO Website
+# This file enables Jekyll processing on GitHub Pages
+
+# Site settings
+title: Aneka - Empowering Through Arts & Education
+description: Aneka NGO is dedicated to promoting arts, education, and cultural heritage through various programs and initiatives.
+url: "https://yourusername.github.io" # Replace with your actual GitHub Pages URL
+baseurl: "/aneka-website" # Replace with your repository name
+
+# Author information
+author:
+  name: Aneka NGO
+  email: info@aneka.org
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:collection/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Aneka NGO"
+
+# Plugins (optional - for enhanced functionality)
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Exclude from processing
+exclude:
+  - README.md
+  - LICENSE
+  - .gitignore
+  - node_modules
+  - vendor
+
+# Include files that should be processed
+include:
+  - _pages
+  - _posts
+
+# Sass settings
+sass:
+  style: compressed
+
+# Pagination (optional)
+paginate: 5
+paginate_path: "/blog/page:num/"
+
+# Social media links
+social:
+  facebook: "https://facebook.com/aneka"
+  twitter: "https://twitter.com/aneka"
+  instagram: "https://instagram.com/aneka"
+  youtube: "https://youtube.com/aneka"
+
+# Contact information
+contact:
+  address: "123 Cultural Street, Arts District, City, State 12345"
+  phone: "+1 (555) 123-4567"
+  email: "info@aneka.org"
+  hours: "Monday - Friday: 9:00 AM - 6:00 PM, Saturday: 10:00 AM - 4:00 PM"
+
+# Programs
+programs:
+  - name: "Bharatnatyam Training"
+    description: "Traditional classical dance training for all age groups"
+    icon: "fas fa-music"
+  - name: "Arts Education"
+    description: "Comprehensive arts education programs for schools and communities"
+    icon: "fas fa-chalkboard-teacher"
+  - name: "Competitions & Awards"
+    description: "Annual competitions and recognition programs"
+    icon: "fas fa-trophy"
+  - name: "Community Outreach"
+    description: "Outreach programs to bring arts and education to underserved communities"
+    icon: "fas fa-users" 

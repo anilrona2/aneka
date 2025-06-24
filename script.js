@@ -113,29 +113,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Navbar background change on scroll
+// Modern header scroll effect with backdrop blur
 window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
-    if (window.scrollY > 100) {
-        header.style.background = 'linear-gradient(135deg, rgba(255, 153, 51, 0.95) 0%, rgba(255, 255, 255, 0.95) 50%, rgba(19, 136, 8, 0.95) 100%)';
-        header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+    const scrollY = window.scrollY;
+    
+    if (scrollY > 50) {
+        header.classList.add('scrolled');
     } else {
-        header.style.background = 'linear-gradient(135deg, var(--saffron) 0%, var(--white) 50%, var(--green) 100%)';
-        header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+        header.classList.remove('scrolled');
     }
 });
 
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+// Smooth scrolling for anchor links with offset for fixed header
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const targetPosition = target.offsetTop - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
     });
 });
 
@@ -147,7 +152,7 @@ function scrollToTop() {
     });
 }
 
-// Show/hide scroll to top button
+// Show/hide scroll to top button with fade effect
 window.addEventListener('scroll', () => {
     const scrollTopBtn = document.querySelector('.scroll-top');
     if (window.scrollY > 300) {
@@ -161,6 +166,30 @@ window.addEventListener('scroll', () => {
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize form validation messages
     updateFormValidationMessages(currentLanguage);
+    
+    // Add intersection observer for animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    // Observe elements for animation
+    const animateElements = document.querySelectorAll('.program-card, .gallery-item, .about-content');
+    animateElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+    });
 });
 
 // Contact form handling
@@ -214,15 +243,15 @@ function showNotification(message, type = 'info') {
     }, 5000);
 }
 
-// Gallery lightbox functionality
+// Lightbox functionality
 function openLightbox(imageSrc) {
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     
     lightboxImg.src = imageSrc;
     lightbox.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
     
-    // Add escape key listener
     const closeOnEscape = (e) => {
         if (e.key === 'Escape') {
             closeLightbox();
@@ -236,4 +265,5 @@ function openLightbox(imageSrc) {
 function closeLightbox() {
     const lightbox = document.getElementById('lightbox');
     lightbox.style.display = 'none';
+    document.body.style.overflow = 'auto';
 } 

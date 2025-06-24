@@ -10,50 +10,55 @@ html {
 }
 
 body {
-    font-family: 'Noto Sans Kannada', 'Arial', sans-serif;
+    font-family: 'Noto Sans Kannada', sans-serif;
     line-height: 1.6;
     color: #333;
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     overflow-x: hidden;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 2rem;
 }
 
-/* Indian Flag Patriotic Theme Colors */
+/* CSS Variables */
 :root {
-    --saffron: #FF9933;
-    --white: #FFFFFF;
+    --saffron: #FF6B35;
+    --dark-saffron: #E55A2B;
     --green: #138808;
     --navy-blue: #000080;
-    --dark-green: #0d6e0a;
-    --dark-saffron: #e68a00;
-    --light-saffron: #ffb366;
-    --light-green: #4CAF50;
+    --white: #FFFFFF;
+    --light-gray: #f8f9fa;
+    --dark-gray: #333;
+    --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
 }
 
-/* Header and Navigation */
+/* Header Styles */
 header {
-    background: linear-gradient(135deg, var(--saffron) 0%, var(--white) 50%, var(--green) 100%);
-    padding: 1rem 0;
     position: fixed;
-    width: 100%;
     top: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-bottom: 3px solid var(--navy-blue);
+    transition: var(--transition);
+    border-bottom: 2px solid var(--saffron);
+}
+
+header.scrolled {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: var(--shadow);
 }
 
 nav {
-    max-width: 1200px;
-    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 2rem;
+    padding: 1rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .logo {
@@ -63,18 +68,18 @@ nav {
 }
 
 .logo img {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    border: 3px solid var(--navy-blue);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    object-fit: cover;
+    border: 2px solid var(--saffron);
 }
 
 .logo h1 {
     font-size: 1.8rem;
-    font-weight: bold;
+    font-weight: 700;
     color: var(--navy-blue);
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .nav-links {
@@ -85,65 +90,60 @@ nav {
 
 .nav-links a {
     text-decoration: none;
-    color: var(--navy-blue);
-    font-weight: 600;
+    color: var(--dark-gray);
+    font-weight: 500;
+    position: relative;
+    transition: var(--transition);
     padding: 0.5rem 1rem;
     border-radius: 25px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
 }
 
 .nav-links a::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, var(--saffron), var(--white), var(--green));
-    transition: left 0.3s ease;
-    z-index: -1;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--saffron), var(--green));
+    transition: var(--transition);
+    transform: translateX(-50%);
 }
 
 .nav-links a:hover::before {
-    left: 0;
+    width: 80%;
 }
 
 .nav-links a:hover {
-    color: var(--navy-blue);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    color: var(--saffron);
+    background: rgba(255, 107, 53, 0.1);
 }
 
 .language-switcher {
     display: flex;
     gap: 0.5rem;
-    align-items: center;
 }
 
 .language-switcher button {
-    background: var(--navy-blue);
-    color: white;
-    border: none;
     padding: 0.5rem 1rem;
-    border-radius: 20px;
+    border: 2px solid var(--saffron);
+    background: transparent;
+    color: var(--saffron);
+    border-radius: 25px;
     cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: 2px solid var(--navy-blue);
+    transition: var(--transition);
+    font-weight: 500;
 }
 
 .language-switcher button:hover {
-    background: var(--white);
-    color: var(--navy-blue);
-    transform: scale(1.05);
+    background: var(--saffron);
+    color: white;
+    transform: translateY(-2px);
 }
 
 .language-switcher button.active {
     background: var(--saffron);
-    color: var(--navy-blue);
-    border-color: var(--saffron);
+    color: white;
 }
 
 .mobile-menu-btn {
@@ -151,24 +151,19 @@ nav {
     background: none;
     border: none;
     font-size: 1.5rem;
-    color: var(--navy-blue);
     cursor: pointer;
+    color: var(--navy-blue);
 }
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, 
-        var(--saffron) 0%, 
-        var(--white) 25%, 
-        var(--white) 75%, 
-        var(--green) 100%);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 8rem 2rem 4rem;
     position: relative;
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.9) 0%, rgba(19, 136, 8, 0.9) 50%, rgba(0, 0, 128, 0.9) 100%);
     overflow: hidden;
 }
 
@@ -179,32 +174,34 @@ nav {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23ffffff" opacity="0.1"/></svg>') repeat;
-    pointer-events: none;
+    background: url('logo.jpeg') center/cover;
+    background-attachment: fixed;
+    filter: blur(8px) brightness(0.3);
+    z-index: -1;
 }
 
 .hero-content {
     max-width: 800px;
+    padding: 2rem;
     z-index: 1;
     position: relative;
 }
 
 .hero h1 {
     font-size: 3.5rem;
-    margin-bottom: 1rem;
-    color: var(--navy-blue);
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
-    background: linear-gradient(45deg, var(--saffron), var(--navy-blue), var(--green));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 1s ease-out;
 }
 
 .hero p {
     font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.9);
     margin-bottom: 2rem;
-    color: var(--navy-blue);
-    font-weight: 500;
+    line-height: 1.8;
+    animation: fadeInUp 1s ease-out 0.3s both;
 }
 
 .cta-buttons {
@@ -212,50 +209,50 @@ nav {
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
+    animation: fadeInUp 1s ease-out 0.6s both;
 }
 
 .btn {
-    padding: 1rem 2rem;
-    border: none;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
     display: inline-block;
-    position: relative;
-    overflow: hidden;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: var(--transition);
+    border: 3px solid transparent;
+    font-size: 1.1rem;
+    cursor: pointer;
 }
 
 .btn-primary {
     background: linear-gradient(45deg, var(--saffron), var(--dark-saffron));
     color: white;
-    border: 3px solid var(--saffron);
+    border-color: var(--saffron);
 }
 
 .btn-primary:hover {
     background: linear-gradient(45deg, var(--dark-saffron), var(--saffron));
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 153, 51, 0.4);
+    box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
 }
 
 .btn-secondary {
-    background: linear-gradient(45deg, var(--green), var(--dark-green));
+    background: transparent;
     color: white;
-    border: 3px solid var(--green);
+    border-color: white;
 }
 
 .btn-secondary:hover {
-    background: linear-gradient(45deg, var(--dark-green), var(--green));
+    background: white;
+    color: var(--navy-blue);
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(19, 136, 8, 0.4);
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
 }
 
-/* Section Headers with Patriotic Theme */
+/* Section Headers */
 .section-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
     position: relative;
 }
 
@@ -265,7 +262,7 @@ nav {
     top: -20px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100px;
+    width: 80px;
     height: 4px;
     background: linear-gradient(90deg, var(--saffron), var(--white), var(--green));
     border-radius: 2px;
@@ -275,12 +272,12 @@ nav {
     font-size: 2.5rem;
     color: var(--navy-blue);
     margin-bottom: 1rem;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    font-weight: 700;
 }
 
 .section-header p {
-    font-size: 1.1rem;
-    color: #666;
+    font-size: 1.2rem;
+    color: var(--dark-gray);
     max-width: 600px;
     margin: 0 auto;
 }
@@ -288,7 +285,7 @@ nav {
 /* About Section */
 .about {
     padding: 5rem 2rem;
-    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    background: var(--light-gray);
 }
 
 .about-content {
@@ -301,32 +298,69 @@ nav {
 }
 
 .about-text h3 {
-    font-size: 2rem;
     color: var(--navy-blue);
-    margin-bottom: 1.5rem;
-    border-left: 5px solid var(--saffron);
-    padding-left: 1rem;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
 }
 
 .about-text p {
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-    color: #555;
+    color: var(--dark-gray);
     line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+.aneka-meaning {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 2rem 0;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--saffron);
+}
+
+.aneka-meaning h3 {
+    color: var(--saffron);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.diversity-poem {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(19, 136, 8, 0.1) 100%);
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 2rem 0;
+    border: 2px solid var(--saffron);
+}
+
+.diversity-poem h3 {
+    color: var(--navy-blue);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.poem-content {
+    text-align: center;
+    font-style: italic;
+    line-height: 2;
+}
+
+.poem-content p {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: var(--dark-gray);
 }
 
 .about-image {
-    text-align: center;
     position: relative;
 }
 
 .about-image img {
     width: 100%;
-    max-width: 400px;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    border: 5px solid var(--white);
-    position: relative;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
 }
 
 .about-image::before {
@@ -334,18 +368,22 @@ nav {
     position: absolute;
     top: -10px;
     left: -10px;
-    right: -10px;
-    bottom: -10px;
+    right: 10px;
+    bottom: 10px;
     background: linear-gradient(45deg, var(--saffron), var(--green));
-    border-radius: 25px;
+    border-radius: 20px;
     z-index: -1;
     opacity: 0.3;
+}
+
+.about-image:hover img {
+    transform: scale(1.05);
 }
 
 /* Programs Section */
 .programs {
     padding: 5rem 2rem;
-    background: linear-gradient(135deg, var(--light-saffron) 0%, var(--white) 50%, var(--light-green) 100%);
+    background: white;
 }
 
 .programs-grid {
@@ -358,13 +396,12 @@ nav {
 
 .program-card {
     background: white;
-    padding: 2rem;
+    padding: 2.5rem;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    border: 3px solid transparent;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
     position: relative;
-    overflow: hidden;
+    border: 2px solid transparent;
 }
 
 .program-card::before {
@@ -373,53 +410,55 @@ nav {
     top: 0;
     left: 0;
     right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, var(--saffron), var(--white), var(--green));
+    height: 4px;
+    background: linear-gradient(90deg, var(--saffron), var(--green));
+    border-radius: 20px 20px 0 0;
 }
 
 .program-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    border-color: var(--navy-blue);
+    border-color: var(--saffron);
 }
 
 .program-card h3 {
-    font-size: 1.5rem;
     color: var(--navy-blue);
+    font-size: 1.5rem;
     margin-bottom: 1rem;
-    border-bottom: 2px solid var(--saffron);
-    padding-bottom: 0.5rem;
+    font-weight: 600;
 }
 
 .program-card p {
-    color: #666;
+    color: var(--dark-gray);
     line-height: 1.6;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .program-card ul {
     list-style: none;
-    padding-left: 0;
 }
 
 .program-card li {
-    padding: 0.5rem 0;
-    color: #555;
     position: relative;
     padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--dark-gray);
 }
 
 .program-card li::before {
-    content: '🇮🇳';
+    content: '•';
     position: absolute;
     left: 0;
-    top: 0.5rem;
+    top: 0;
+    color: var(--saffron);
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
 /* Gallery Section */
 .gallery {
     padding: 5rem 2rem;
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    background: var(--light-gray);
 }
 
 .gallery-grid {
@@ -435,9 +474,9 @@ nav {
     overflow: hidden;
     border-radius: 15px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
     border: 3px solid var(--white);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow);
 }
 
 .gallery-item:hover {
@@ -472,7 +511,7 @@ nav {
     background: white;
     padding: 3rem;
     border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow);
     border: 3px solid var(--navy-blue);
 }
 
@@ -495,7 +534,7 @@ nav {
     border: 2px solid #ddd;
     border-radius: 10px;
     font-size: 1rem;
-    transition: all 0.3s ease;
+    transition: var(--transition);
     font-family: inherit;
 }
 
@@ -521,7 +560,7 @@ nav {
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
     width: 100%;
     border: 3px solid var(--saffron);
 }
@@ -637,7 +676,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
 .lightbox-close:hover {
@@ -671,6 +710,18 @@ footer {
     background: #dc3545;
 }
 
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-links {
@@ -679,10 +730,11 @@ footer {
         top: 100%;
         left: 0;
         width: 100%;
-        background: linear-gradient(135deg, var(--saffron) 0%, var(--white) 50%, var(--green) 100%);
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
         flex-direction: column;
         padding: 1rem;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow);
     }
 
     .nav-links.active {
@@ -725,7 +777,7 @@ footer {
     }
 }
 
-/* Scroll to top button with patriotic theme */
+/* Scroll to top button */
 .scroll-top {
     position: fixed;
     bottom: 20px;
@@ -742,7 +794,7 @@ footer {
     justify-content: center;
     font-size: 1.5rem;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
+    transition: var(--transition);
     z-index: 1000;
 }
 
@@ -755,7 +807,7 @@ footer {
     display: flex;
 }
 
-/* Patriotic border decorations */
+/* Modern decorative elements */
 .section-header::after {
     content: '';
     position: absolute;
@@ -766,14 +818,4 @@ footer {
     height: 3px;
     background: linear-gradient(90deg, var(--saffron), var(--white), var(--green));
     border-radius: 2px;
-}
-
-/* Patriotic card hover effects */
-.program-card:hover::after {
-    content: '🇮🇳';
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5rem;
-    opacity: 0.7;
 } 

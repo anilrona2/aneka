@@ -226,12 +226,63 @@ function submitForm(event) {
         return;
     }
     
-    // Simulate form submission
-    const successMessage = currentLanguage === 'kn' ? 
-        'ನಿಮ್ಮ ಸಂದೇಶಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು! ನಾವು ಶೀಘ್ರದಲ್ಲೇ ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸುತ್ತೇವೆ.' : 
-        'Thank you for your message! We will get back to you soon.';
-    showNotification(successMessage, 'success');
-    form.reset();
+    // Show loading state
+    const submitBtn = form.querySelector('.submit-btn');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = currentLanguage === 'kn' ? 'ಕಳುಹಿಸಲಾಗುತ್ತಿದೆ...' : 'Sending...';
+    submitBtn.disabled = true;
+    
+    // Prepare email data
+    const emailData = {
+        to: 'anilrona2@gmail.com',
+        from: email,
+        subject: `Aneka Trust Contact Form: ${subject}`,
+        html: `
+            <h2>New Contact Form Submission</h2>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Phone:</strong> ${phone}</p>
+            <p><strong>Subject:</strong> ${subject}</p>
+            <p><strong>Message:</strong></p>
+            <p>${message.replace(/\n/g, '<br>')}</p>
+        `
+    };
+    
+    // Send email using a simple webhook service
+    fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            access_key: 'YOUR_WEB3FORMS_KEY', // You'll need to get a free key from web3forms.com
+            ...emailData
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const successMessage = currentLanguage === 'kn' ? 
+                'ನಿಮ್ಮ ಸಂದೇಶಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು! ನಾವು ಶೀಘ್ರದಲ್ಲೇ ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸುತ್ತೇವೆ.' : 
+                'Thank you for your message! We will get back to you soon.';
+            showNotification(successMessage, 'success');
+            form.reset();
+        } else {
+            throw new Error('Failed to send email');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        const errorMessage = currentLanguage === 'kn' ? 
+            'ಸಂದೇಶ ಕಳುಹಿಸುವಲ್ಲಿ ದೋಷ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.' : 
+            'Error sending message. Please try again.';
+        showNotification(errorMessage, 'error');
+    })
+    .finally(() => {
+        // Reset button state
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    });
 }
 
 // Email validation

@@ -255,7 +255,7 @@ function submitForm(event) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            access_key: 'YOUR_WEB3FORMS_KEY', // You'll need to get a free key from web3forms.com
+            access_key: '3cdf8104-b435-45b9-bdc1-fb79fd83b050',
             ...emailData
         })
     })

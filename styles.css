@@ -574,6 +574,20 @@ nav {
     font-size: 1.2rem;
 }
 
+/* Poems Section */
+.poems {
+    padding: 5rem 2rem;
+    background: var(--light-gray);
+}
+
+.poems-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+}
+
 /* Success Stories Section */
 .success-stories {
     padding: 5rem 2rem;
